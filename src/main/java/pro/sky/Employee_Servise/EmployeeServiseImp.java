@@ -15,9 +15,9 @@ public class EmployeeServiseImp implements EmployeeService{
     }
 
     @Override
-    public Employee add(String firstName, String lastName) {
+    public Employee add(String firstName, String lastName,int salary,int dept) {
 
-        Employee employee=new Employee(firstName, lastName);
+        Employee employee=new Employee(firstName, lastName, salary, dept);
         String eKey= employee.getFirstName()+employee.getLastName();
         if(employees.containsKey(eKey)){throw new EmployeeAlreadyAddedException();}
         employees.put(eKey,employee);
