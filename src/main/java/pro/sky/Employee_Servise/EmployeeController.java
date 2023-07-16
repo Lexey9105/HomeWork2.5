@@ -29,7 +29,7 @@ public class EmployeeController {
     public  Employee find(@RequestParam String firstName,@RequestParam String lastName){
         return employeeService.find(firstName, lastName);}
 
-    @GetMapping
+    @GetMapping("findAll")
     public Collection<Employee> findAll(){
         return employeeService.findAll();
     }

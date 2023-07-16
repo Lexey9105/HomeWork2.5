@@ -6,45 +6,58 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class EmployeeServiseImp implements EmployeeService{
+public class EmployeeServiseImp implements EmployeeService {
 
-    private final Map<String,Employee> employees;
+    private final Map<String, Employee> employees;
 
 
-    public EmployeeServiseImp(){
-        this.employees=new HashMap<>();
+    public EmployeeServiseImp() {
+        this.employees = new HashMap<>();
     }
 
     @Override
-    public Employee add(String firstName, String lastName,int salary,int dept) {
-        if(StringUtils.isAlpha(firstName)==false||StringUtils.isAlpha(lastName)==false){throw new EmployeeIncorrectDataExeption();}
-        firstName=StringUtils.capitalize (firstName);
-        lastName=StringUtils.capitalize (lastName);
-        Employee employee=new Employee(firstName, lastName, salary, dept);
-        String eKey= employee.getFirstName()+employee.getLastName();
-        if(employees.containsKey(eKey)){throw new EmployeeAlreadyAddedException();}
-        employees.put(eKey,employee);
+    public Employee add(String firstName, String lastName, int salary, int dept) {
+        if (StringUtils.isAlpha(firstName) == false || StringUtils.isAlpha(lastName) == false) {
+            throw new EmployeeIncorrectDataExeption();
+        }
+        if (salary < 13890 || dept < 1 || dept > 4) {
+            throw new EmployeeIncorrectDataExeption();
+        }
+        firstName = StringUtils.capitalize(firstName);
+        lastName = StringUtils.capitalize(lastName);
+        Employee employee = new Employee(firstName, lastName, salary, dept);
+        String eKey = employee.getFirstName() + employee.getLastName();
+        if (employees.containsKey(eKey)) {
+            throw new EmployeeAlreadyAddedException();
+        }
+        employees.put(eKey, employee);
 
         return employee;
     }
 
     @Override
     public Employee remove(String firstName, String lastName) {
-        Employee employee=new Employee(firstName, lastName);
-        String eKey= employee.getFirstName()+employee.getLastName();
-        if(!employees.containsKey(eKey)){throw new EmployeeNotFoundException();}
+        Employee employee = new Employee(firstName, lastName);
+        String eKey = employee.getFirstName() + employee.getLastName();
+        if (!employees.containsKey(eKey)) {
+            throw new EmployeeNotFoundException();
+        }
         employees.remove(eKey);
         return employee;
     }
 
     @Override
     public Employee find(String firstName, String lastName) {
-        Employee employee=new Employee(firstName, lastName);
-        String eKey= employee.getFirstName()+employee.getLastName();
-        if(!employees.containsKey(eKey)){throw new EmployeeNotFoundException();}
+        Employee employee = new Employee(firstName, lastName);
+        String eKey = employee.getFirstName() + employee.getLastName();
+        if (!employees.containsKey(eKey)) {
+            throw new EmployeeNotFoundException();
+        }
         return employee;
     }
-    public Collection<Employee> findAll(){
+
+    public Collection<Employee> findAll() {
+
         return employees.values();
     }
 }

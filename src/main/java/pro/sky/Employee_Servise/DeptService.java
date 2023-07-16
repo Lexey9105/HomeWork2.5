@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface DeptService {
+    Integer sum(int dept);
     Employee deptMax(int dept);
     Employee deptMin(int dept);
     Collection<Employee> deptEmploy(int dept);
